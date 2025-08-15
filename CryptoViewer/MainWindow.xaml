@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoViewer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="800">
     <Grid>
-
+        <DataGrid ItemsSource="{Binding Assets}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" />
+                <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Price (USD)" Binding="{Binding PriceUsd, StringFormat=C}" />
+                <DataGridTextColumn Header="Change 24h (%)" Binding="{Binding ChangePercent24Hr}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
