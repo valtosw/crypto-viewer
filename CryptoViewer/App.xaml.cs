@@ -1,6 +1,7 @@
 ﻿using CryptoViewer.Core.Interfaces;
 using CryptoViewer.Infrastructure.Http;
 using CryptoViewer.Infrastructure.Services;
+using CryptoViewer.UI.Wpf.Services;
 using CryptoViewer.UI.Wpf.Services.Interfaces;
 using CryptoViewer.UI.Wpf.ViewModels;
 using CryptoViewer.UI.Wpf.Views.Pages;
@@ -33,26 +34,27 @@ namespace CryptoViewer
 
             services.AddSingleton(new ApiClient(apiBaseUrl, apiKey));
 
-            services.AddSingleton<INavigationService, INavigationService>();
+            services.AddSingleton<INavigationService, NavigationService>();
 
             services.AddTransient<IMarketDataService, MarketDataService>();
             services.AddTransient<ISearchService, SearchService>();
             services.AddTransient<IConverterService, ConverterService>();
 
-            services.AddTransient<MainViewModel>();
+            services.AddTransient<DashboardViewModel>();
+            services.AddTransient<SearchViewModel>();
+            services.AddTransient<ConverterViewModel>();
+            services.AddTransient<AssetDetailViewModel>();
 
             services.AddTransient<DashboardPage>();
             services.AddTransient<ConverterPage>();
             services.AddTransient<SearchPage>();
             services.AddTransient<AssetDetailPage>();
 
+            services.AddTransient<MainWindow>();
 
             ServiceProvider = services.BuildServiceProvider();
 
-            var mainWindow = new MainWindow
-            {
-                DataContext = ServiceProvider.GetRequiredService<MainViewModel>()
-            };
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
 
             mainWindow.Show();
         }
