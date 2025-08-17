@@ -1,10 +1,13 @@
 ﻿using CryptoViewer.Core.Interfaces;
 using CryptoViewer.Core.Models;
+using CryptoViewer.UI.Wpf.Services.Interfaces;
+using CryptoViewer.UI.Wpf.Views.Pages;
 
 namespace CryptoViewer.UI.Wpf.ViewModels
 {
     public class DashboardViewModel : AssetsViewModelBase
     {
+        private readonly INavigationService _navigationService;
         private Asset? _selectedAsset;
 
         public Asset? SelectedAsset
@@ -24,15 +27,17 @@ namespace CryptoViewer.UI.Wpf.ViewModels
             }
         }
 
-        public DashboardViewModel(IMarketDataService marketDataService)
+        public DashboardViewModel(IMarketDataService marketDataService, INavigationService navigationService)
             : base(marketDataService)
         {
+            _navigationService = navigationService;
+
             _ = LoadAssetsAsync(50);
         }
 
         private void OnAssetSelected(Asset asset)
         {
-            throw new NotImplementedException("Navigation to asset details is not implemented yet.");
+            _navigationService.NavigateTo<AssetDetailPage>(asset);
         }
     }
 }
