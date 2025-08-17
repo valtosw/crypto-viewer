@@ -1,15 +1,6 @@
 ﻿using CryptoViewer.UI.Wpf.Services.Interfaces;
 using CryptoViewer.UI.Wpf.Views.Pages;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CryptoViewer
 {
@@ -18,12 +9,30 @@ namespace CryptoViewer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly INavigationService _navigationService;
+
         public MainWindow(INavigationService navigationService)
         {
             InitializeComponent();
 
-            navigationService.SetFrame(MainFrame);
-            navigationService.NavigateTo<DashboardPage>();
+            _navigationService = navigationService;
+            _navigationService.SetFrame(MainFrame);
+            _navigationService.NavigateTo<DashboardPage>();
+        }
+
+        private void NavigateToDashboard(object sender, RoutedEventArgs e)
+        {
+            _navigationService.NavigateTo<DashboardPage>();
+        }
+
+        private void NavigateToSearch(object sender, RoutedEventArgs e)
+        {
+            _navigationService.NavigateTo<SearchPage>();
+        }
+
+        private void NavigateToConverter(object sender, RoutedEventArgs e)
+        {
+            _navigationService.NavigateTo<ConverterPage>();
         }
     }
 }
