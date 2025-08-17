@@ -15,5 +15,17 @@ namespace CryptoViewer.UI.Wpf.Services
             var page = serviceProvider.GetRequiredService<T>();
             _frame.Navigate(page);
         }
+
+        public void NavigateTo<T>(object parameter) where T : Page
+        {
+            var page = serviceProvider.GetRequiredService<T>();
+
+            if (page.DataContext is INavigable navigable)
+            {
+                navigable.OnNavigatedTo(parameter);
+            }
+
+            _frame.Navigate(page);
+        }
     }
 }
