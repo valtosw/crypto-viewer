@@ -8,10 +8,6 @@
       mc:Ignorable="d" 
       Title="Dashboard">
 
-    <Page.DataContext>
-        <vm:DashboardViewModel />
-    </Page.DataContext>
-
     <Border Background="{StaticResource BackgroundBrush}" Padding="20">
         <Grid>
             <TextBlock Text="Top Cryptocurrencies"
