@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using CryptoViewer.UI.Wpf.Services.Interfaces;
+using CryptoViewer.UI.Wpf.Views.Pages;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +18,12 @@ namespace CryptoViewer
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(INavigationService navigationService)
         {
             InitializeComponent();
+
+            navigationService.SetFrame(MainFrame);
+            navigationService.NavigateTo<DashboardPage>();
         }
     }
 }

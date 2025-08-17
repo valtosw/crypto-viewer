@@ -5,16 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoViewer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        WindowStartupLocation="CenterScreen"
+        Title="CryptoViewer" Height="700" Width="1100"
+        Background="{StaticResource BackgroundBrush}">
+    
     <Grid>
-        <DataGrid ItemsSource="{Binding Assets}" AutoGenerateColumns="False" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" />
-                <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Price (USD)" Binding="{Binding PriceUsd, StringFormat=C}" />
-                <DataGridTextColumn Header="Change 24h (%)" Binding="{Binding ChangePercent24Hr}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="{StaticResource SurfaceBrush}" Padding="20">
+            <StackPanel>
+                <TextBlock Text="Crypto Viewer" FontSize="22" FontWeight="Bold" 
+               Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,20"/>
+
+                <Button Content="Dashboard" Click="NavigateToDashboard"/>
+                <Button Content="Search" Click="NavigateToSearch"/>
+                <Button Content="Converter" Click="NavigateToConverter"/>
+            </StackPanel>
+        </Border>
+
+        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
