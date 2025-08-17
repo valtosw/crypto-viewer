@@ -2,6 +2,6 @@
 {
     public interface INavigable
     {
-        void OnNavigatedTo(object parameter);
+        Task OnNavigatedTo(object parameter);
     }
 }
