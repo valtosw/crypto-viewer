@@ -34,9 +34,19 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBlock Text="{Binding ExchangeId}" FontWeight="SemiBold"/>
+                                    <TextBlock FontWeight="SemiBold">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}, {1}">
+                                                <Binding Path="ExchangeId"/>
+                                                <Binding Path="BaseId"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    
                                     <TextBlock Grid.Column="1" 
-                                   Text="{Binding PriceUsd, StringFormat='${0:F2}'}"
+                                   Text="{Binding PriceUsd, 
+                                          StringFormat={}{0:$0.########}, 
+                                          TargetNullValue=No info}"
                                    FontWeight="Bold"/>
                                 </Grid>
                             </Border>
