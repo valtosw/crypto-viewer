@@ -17,13 +17,13 @@ namespace CryptoViewer.Infrastructure.Services
 
         public async Task<IReadOnlyList<Market>> GetMarketsAsync(string assetId, CancellationToken cancellationToken = default)
         {
-            var path = $"markets?assetId={assetId}";
+            var path = $"assets/{assetId}/markets";
             var result = await apiClient.GetAsync<ApiListResponse<Market>>(path, cancellationToken);
 
             return result?.Data ?? [];
         }
 
-        public async Task<IReadOnlyList<Asset>> GetTopAssetsAsync(int limit = 100, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyList<Asset>> GetTopAssetsAsync(int? limit = null, CancellationToken cancellationToken = default)
         {
             var path = $"assets?limit={limit}";
             var result = await apiClient.GetAsync<ApiListResponse<Asset>>(path, cancellationToken);
