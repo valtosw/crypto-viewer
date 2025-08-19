@@ -37,16 +37,13 @@ namespace CryptoViewer
             services.AddSingleton<INavigationService, NavigationService>();
 
             services.AddTransient<IMarketDataService, MarketDataService>();
-            services.AddTransient<ISearchService, SearchService>();
-            services.AddTransient<IConverterService, ConverterService>();
+            services.AddSingleton<ISearchService, SearchService>();
 
             services.AddTransient<DashboardViewModel>();
             services.AddTransient<SearchViewModel>();
-            services.AddTransient<ConverterViewModel>();
             services.AddTransient<AssetDetailViewModel>();
 
             services.AddTransient<DashboardPage>();
-            services.AddTransient<ConverterPage>();
             services.AddTransient<SearchPage>();
             services.AddTransient<AssetDetailPage>();
 
