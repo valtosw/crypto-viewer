@@ -29,10 +29,5 @@ namespace CryptoViewer
         {
             _navigationService.NavigateTo<SearchPage>();
         }
-
-        private void NavigateToConverter(object sender, RoutedEventArgs e)
-        {
-            _navigationService.NavigateTo<ConverterPage>();
-        }
     }
 }
