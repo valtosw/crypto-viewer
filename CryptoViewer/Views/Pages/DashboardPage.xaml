@@ -7,21 +7,132 @@
       mc:Ignorable="d" 
       Title="Dashboard">
 
-    <Border Background="{StaticResource BackgroundBrush}" Padding="20">
+    <Border Background="{StaticResource BackgroundBrush}" Padding="16" CornerRadius="8">
         <Grid>
-            <TextBlock Text="Top Cryptocurrencies"
-               FontSize="24"
-               Foreground="{StaticResource PrimaryBrush}"
-               Margin="0,0,0,10"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <ListView ItemsSource="{Binding Assets}" SelectedItem="{Binding SelectedAsset, Mode=TwoWay}">
+            <StackPanel Grid.Row="0" Margin="8,0,8,14">
+                <TextBlock Text="Top Cryptocurrencies"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource PrimaryBrush}" />
+                <TextBlock Text="Market overview of the most traded coins"
+                       FontSize="12"
+                       Foreground="{StaticResource TextBrush}"
+                       Opacity="0.8"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1" Margin="8,0,8,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="1.6*"/>
+                    <ColumnDefinition Width="1.6*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Name" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="Symbol" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="2" Text="Price (USD)" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="3" Text="24h" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="4" Text="Market Cap" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="5" Text="Volume (24h)" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center"/>
+            </Grid>
+
+            <ListView Grid.Row="2"
+                  ItemsSource="{Binding Assets}"
+                  SelectedItem="{Binding SelectedAsset, Mode=TwoWay}"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  HorizontalContentAlignment="Stretch"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  Padding="0">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                                <Setter Property="Foreground" Value="{StaticResource SurfaceBrush}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Margin="5">
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="0,0,10,0"/>
-                            <TextBlock Text="{Binding Symbol}" Foreground="Gray"/>
-                            <TextBlock Text="{Binding PriceUsd, StringFormat=C}" Margin="10,0,0,0"/>
-                        </StackPanel>
+                        <Grid Margin="8,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="0.9*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="0.9*"/>
+                                <ColumnDefinition Width="1.6*"/>
+                                <ColumnDefinition Width="1.6*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Name}"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextBrush}"
+                                       TextTrimming="CharacterEllipsis"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
+                                    <TextBlock Text="{Binding Rank, StringFormat=Rank {0}}"
+                                           FontSize="11"
+                                           Foreground="{StaticResource TextBrush}"
+                                           Opacity="0.75"/>
+                                    <TextBlock Text="  •  " FontSize="11" Foreground="{StaticResource TextBrush}" Opacity="0.45"/>
+                                    <TextBlock Text="{Binding Supply, StringFormat=Supply: {0:N0}}"
+                                           FontSize="11"
+                                           Foreground="{StaticResource TextBrush}"
+                                           Opacity="0.75"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <TextBlock Grid.Column="1"
+                                   Text="{Binding Symbol}"
+                                   VerticalAlignment="Center"
+                                   Margin="6,0"
+                                   Foreground="{StaticResource TextBrush}"
+                                   TextTrimming="CharacterEllipsis"/>
+
+                            <TextBlock Grid.Column="2"
+                                   Text="{Binding PriceUsd, StringFormat={}{0:C2}}"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource TextBrush}"
+                                   TextTrimming="CharacterEllipsis"/>
+
+                            <TextBlock Grid.Column="3"
+                                   Text="{Binding ChangePercent24Hr, StringFormat={}{0:F2}%}"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource TextBrush}"
+                                   TextTrimming="CharacterEllipsis"/>
+
+                            <TextBlock Grid.Column="4"
+                                   Text="{Binding MarketCapUsd, StringFormat={}{0:N0}}"
+                                   VerticalAlignment="Center" 
+                                   Foreground="{StaticResource TextBrush}"
+                                   TextTrimming="CharacterEllipsis"/>
+
+                            <TextBlock Grid.Column="5"
+                                   Text="{Binding VolumeUsd24Hr, StringFormat={}{0:N0}}"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource TextBrush}"
+                                   TextTrimming="CharacterEllipsis"/>
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
