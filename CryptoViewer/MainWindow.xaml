@@ -8,24 +8,57 @@
         WindowStartupLocation="CenterScreen"
         Title="CryptoViewer" Height="700" Width="1100"
         Background="{StaticResource BackgroundBrush}">
-    
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <Border Background="{StaticResource SurfaceBrush}" Padding="20">
-            <StackPanel>
-                <TextBlock Text="Crypto Viewer" FontSize="22" FontWeight="Bold" 
-               Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,20"/>
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Border Grid.Row="0"
+                Background="{StaticResource SurfaceBrush}"
+                Padding="12"
+                CornerRadius="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-                <Button Content="Dashboard" Click="NavigateToDashboard"/>
-                <Button Content="Search" Click="NavigateToSearch"/>
-                <Button Content="Converter" Click="NavigateToConverter"/>
-            </StackPanel>
+                <TextBlock Text="Crypto Viewer"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="{StaticResource PrimaryBrush}"
+                           VerticalAlignment="Center"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="8">
+                    <Button Content="Dashboard" 
+                            Click="NavigateToDashboard">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="8"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Content="Search"
+                            Background="{StaticResource SecondaryBrush}"
+                            Click="NavigateToSearch">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="8"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </Grid>
         </Border>
 
-        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
+        <Border Grid.Row="1"
+                Background="{StaticResource SurfaceBrush}"
+                Margin="16"
+                CornerRadius="8">
+            <Frame x:Name="MainFrame"
+                   NavigationUIVisibility="Hidden"/>
+        </Border>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
     </Grid>
 </Window>
