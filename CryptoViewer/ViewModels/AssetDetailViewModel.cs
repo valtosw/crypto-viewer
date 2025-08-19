@@ -2,7 +2,6 @@
 using CryptoViewer.Core.Models;
 using CryptoViewer.UI.Wpf.Services.Interfaces;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace CryptoViewer.UI.Wpf.ViewModels
 {
